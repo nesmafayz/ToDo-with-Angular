@@ -1,0 +1,48 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-center mb-5 ">
+                <input type="text" placeholder="Add New Task ..." class="form-control me-2 w-50" [(ngModel)]="obj.taskName">
+                <input type="date" placeholder="Due Date" class="form-control me-2 w-25" [(ngModel)]="obj.dueDate">
+                <div>
+                    @if (obj.itemId == 0) {
+                        <button class="btn btn-primary" (click)="AddNewTask()">Add</button>
+
+                    }
+                    @else {
+                        <button class="btn btn-warning" (click)="UpdateTask()">Update</button>
+
+                    }
+                </div>
+                
+
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-active">
+                        <th scope="col">Number of Task</th>
+                        <th scope="col">Task</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-primary" *ngFor="let task of tasks; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault{{i}}" [checked]="task.isCompleted" (change)="toggleOfCompleteTask(task)">
+                                <label class="form-check-label" for="flexCheckDefault{{i}}" [ngClass]="{'completed': task.isCompleted}">
+                                    {{task.taskName}} | {{task.dueDate|date}}
+                                </label>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-warning me-2" (click)="editTask(task)">Update</button>
+                            <button class="btn btn-danger" (click)="DeleteTask(task.itemId)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
